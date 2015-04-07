@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D9A0C551AD37994008358F8 /* StandUpModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3D9A0C531AD37994008358F8 /* StandUpModel.xcdatamodeld */; };
+		3D9A0C561AD37994008358F8 /* StandUpModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3D9A0C531AD37994008358F8 /* StandUpModel.xcdatamodeld */; };
+		3D9A0C581AD38308008358F8 /* ActivityRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9A0C571AD38308008358F8 /* ActivityRecord.swift */; };
+		3D9A0C591AD38308008358F8 /* ActivityRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9A0C571AD38308008358F8 /* ActivityRecord.swift */; };
+		3D9A0C5B1AD38EB6008358F8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9A0C5A1AD38EB6008358F8 /* CoreData.framework */; };
 		3DB8499C1AD36A2F0072A482 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB8499B1AD36A2F0072A482 /* AppDelegate.swift */; };
 		3DB8499E1AD36A2F0072A482 /* CurrentActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB8499D1AD36A2F0072A482 /* CurrentActivityViewController.swift */; };
 		3DB849A01AD36A2F0072A482 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB8499F1AD36A2F0072A482 /* TodayViewController.swift */; };
@@ -27,6 +32,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D9A0C541AD37994008358F8 /* StandUpModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StandUpModel.xcdatamodel; sourceTree = "<group>"; };
+		3D9A0C571AD38308008358F8 /* ActivityRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityRecord.swift; path = /Users/lindseyhanna/repositories/me/standup2/StandUp2/StandUp2/ActivityRecord.swift; sourceTree = "<absolute>"; };
+		3D9A0C5A1AD38EB6008358F8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		3DB849961AD36A2F0072A482 /* StandUp2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StandUp2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB8499A1AD36A2F0072A482 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DB8499B1AD36A2F0072A482 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D9A0C5B1AD38EB6008358F8 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +70,7 @@
 		3DB8498D1AD36A2F0072A482 = {
 			isa = PBXGroup;
 			children = (
+				3D9A0C5A1AD38EB6008358F8 /* CoreData.framework */,
 				3DB849981AD36A2F0072A482 /* StandUp2 */,
 				3DB849B01AD36A2F0072A482 /* StandUp2Tests */,
 				3DB849971AD36A2F0072A482 /* Products */,
@@ -80,6 +90,8 @@
 			isa = PBXGroup;
 			children = (
 				3DB8499B1AD36A2F0072A482 /* AppDelegate.swift */,
+				3D9A0C531AD37994008358F8 /* StandUpModel.xcdatamodeld */,
+				3D9A0C571AD38308008358F8 /* ActivityRecord.swift */,
 				3DB8499D1AD36A2F0072A482 /* CurrentActivityViewController.swift */,
 				3DB8499F1AD36A2F0072A482 /* TodayViewController.swift */,
 				3DB849A11AD36A2F0072A482 /* Main.storyboard */,
@@ -216,7 +228,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DB849A01AD36A2F0072A482 /* TodayViewController.swift in Sources */,
+				3D9A0C551AD37994008358F8 /* StandUpModel.xcdatamodeld in Sources */,
 				3DB8499C1AD36A2F0072A482 /* AppDelegate.swift in Sources */,
+				3D9A0C581AD38308008358F8 /* ActivityRecord.swift in Sources */,
 				3DB8499E1AD36A2F0072A482 /* CurrentActivityViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,6 +240,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DB849B41AD36A2F0072A482 /* StandUp2Tests.swift in Sources */,
+				3D9A0C561AD37994008358F8 /* StandUpModel.xcdatamodeld in Sources */,
+				3D9A0C591AD38308008358F8 /* ActivityRecord.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +357,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = StandUp2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -351,6 +368,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = StandUp2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -369,6 +387,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = StandUp2Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StandUp2.app/StandUp2";
@@ -384,6 +403,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = StandUp2Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StandUp2.app/StandUp2";
@@ -409,6 +429,7 @@
 				3DB849B91AD36A2F0072A482 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3DB849BA1AD36A2F0072A482 /* Build configuration list for PBXNativeTarget "StandUp2Tests" */ = {
 			isa = XCConfigurationList;
@@ -417,8 +438,22 @@
 				3DB849BC1AD36A2F0072A482 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3D9A0C531AD37994008358F8 /* StandUpModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3D9A0C541AD37994008358F8 /* StandUpModel.xcdatamodel */,
+			);
+			currentVersion = 3D9A0C541AD37994008358F8 /* StandUpModel.xcdatamodel */;
+			path = StandUpModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3DB8498E1AD36A2F0072A482 /* Project object */;
 }

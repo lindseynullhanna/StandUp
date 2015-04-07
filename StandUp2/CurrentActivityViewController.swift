@@ -9,6 +9,9 @@
 import UIKit
 
 class CurrentActivityViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    // Retreive the managedObjectContext from AppDelegate
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
+    
     
     // Outlets
     @IBOutlet weak var activityTable: UITableView!
@@ -64,8 +67,13 @@ class CurrentActivityViewController: UIViewController, UITableViewDataSource, UI
         
         // elapsed time
         if timer.valid {
-            stopTimer()
             // record time
+            updateTime()
+            ActivityRecord.createInManagedObjectContext(self.managedObjectContext!, type: activityList[row], duration: timer.timeInterval)
+            stopTimer()
+            
+            
+            
         }
         
         // start a new timer
@@ -102,9 +110,6 @@ class CurrentActivityViewController: UIViewController, UITableViewDataSource, UI
         
         // concat string and apply to label
         elapsedTimeLabel.text = "\(strHours):\(strMinutes):\(strSeconds)"
-        
-        
     }
-
 }
 
