@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  CurrentActivityViewController.swift
 //  StandUp2
 //
 //  Created by Lindsey.Hanna on 4/6/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class CurrentActivityViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
