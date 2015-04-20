@@ -13,12 +13,14 @@ import CoreData
 class ActivityRecord: NSManagedObject {
 
     @NSManaged var type: String
-    @NSManaged var duration: NSNumber
+    @NSManaged var startTime: NSDate
+    @NSManaged var endTime: NSDate
 
-    class func createInManagedObjectContext(moc:NSManagedObjectContext, type: String, duration: Double) -> ActivityRecord {
-        let newItem = NSEntityDescription.insertNewObjectForEntityForName("ActivityRecord", inManagedObjectContext: moc) as ActivityRecord
+    class func createInManagedObjectContext(moc:NSManagedObjectContext, type: String, startTime: NSDate, endTime: NSDate) -> ActivityRecord {
+        let newItem = NSEntityDescription.insertNewObjectForEntityForName("ActivityRecord", inManagedObjectContext: moc) as! ActivityRecord
         newItem.type = type
-        newItem.duration = duration
+        newItem.startTime = startTime
+        newItem.endTime = endTime
         
         return newItem
     }

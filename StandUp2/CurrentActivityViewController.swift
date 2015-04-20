@@ -10,20 +10,27 @@ import UIKit
 
 class CurrentActivityViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     // Retreive the managedObjectContext from AppDelegate
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     
     // Outlets
     @IBOutlet weak var activityTable: UITableView!
     @IBOutlet weak var currentActivityLabel: UILabel!
     @IBOutlet weak var elapsedTimeLabel: UILabel!
-
+    @IBOutlet weak var endActivityButton: UIButton!
+    
+    // Actions
+    @IBAction func endCurrentActivity(sender: UIButton) {
+        stopTimerAndRecord(prevActivityType)
+    }
+    
     // Activity table
     let activityList = ["Standing", "Walking", "Sitting"]
     let tableCellID = "ActivityCell"
     
     // Elapsed time
-    var lastStartTime = NSTimeInterval()
+    var prevActivityType = ""
+    var lastStartTime = NSDate()
     var timer = NSTimer()
     
     
@@ -32,6 +39,7 @@ class CurrentActivityViewController: UIViewController, UITableViewDataSource, UI
         // Do any additional setup after loading the view, typically from a nib.
         activityTable.delegate = self
         activityTable.dataSource = self
+        endActivityButton.enabled = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,7 +57,7 @@ class CurrentActivityViewController: UIViewController, UITableViewDataSource, UI
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(tableCellID, forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(tableCellID, forIndexPath: indexPath) as! UITableViewCell
         
         let row = indexPath.row
         cell.textLabel?.text = activityList[row]
@@ -67,49 +75,48 @@ class CurrentActivityViewController: UIViewController, UITableViewDataSource, UI
         
         // elapsed time
         if timer.valid {
-            // record time
-            updateTime()
-            ActivityRecord.createInManagedObjectContext(self.managedObjectContext!, type: activityList[row], duration: timer.timeInterval)
-            stopTimer()
-            
-            
-            
+            stopTimerAndRecord(prevActivityType)
         }
         
         // start a new timer
+        prevActivityType = activityList[row]
         startTimer()
     }
     
+    func recordTime(activityType: String) {
+        ActivityRecord.createInManagedObjectContext(
+            self.managedObjectContext!,
+            type: activityType,
+            startTime: lastStartTime,
+            endTime: NSDate())
+    }
+    
     func startTimer() {
+        endActivityButton.enabled = true
+        // refresh stopwatch every .1sec
         let aSelector: Selector = "updateTime"
         timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: aSelector, userInfo: nil, repeats: true)
         
-        lastStartTime = NSDate.timeIntervalSinceReferenceDate()
+        // set start time
+        lastStartTime = NSDate()
     }
     
-    func stopTimer() {
+    func stopTimerAndRecord(activityType: String) {
+        endActivityButton.enabled = false
+        updateTime()
+        // record time
+        recordTime(activityType)
+        // reset stuff
         timer.invalidate()
     }
     
+    // string displayed to stopwatch
     func updateTime() {
         
-        var currentTime = NSDate.timeIntervalSinceReferenceDate()
-        var elapsedTime: NSTimeInterval = currentTime - lastStartTime
-        
-        // set variables
-        let hours = UInt8(elapsedTime / 60.0)
-        elapsedTime -= (NSTimeInterval(hours) * 60)
-        let minutes = UInt8(elapsedTime / 60.0)
-        elapsedTime -= (NSTimeInterval(minutes) * 60)
-        let seconds = UInt8(elapsedTime)
-        
-        // create strings
-        let strHours = hours > 9 ? String(hours):"0" + String(hours)
-        let strMinutes = minutes > 9 ? String(minutes):"0" + String(minutes)
-        let strSeconds = seconds > 9 ? String(seconds):"0" + String(seconds)
-        
-        // concat string and apply to label
-        elapsedTimeLabel.text = "\(strHours):\(strMinutes):\(strSeconds)"
+        var currentTime = NSDate()
+        var elapsedTime: NSTimeInterval = currentTime.timeIntervalSinceDate(lastStartTime)
+        let elapsedString = createDurationString(elapsedTime)
+        elapsedTimeLabel.text = elapsedString
     }
 }
 

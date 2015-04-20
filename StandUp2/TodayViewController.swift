@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     @IBOutlet weak var activityListTable: UITableView!
     
@@ -51,10 +51,14 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(tableCellID2, forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(tableCellID2, forIndexPath: indexPath) as! UITableViewCell
         
         let row = indexPath.row
-        cell.textLabel?.text = activityRecordsList[row].type
+        let record = activityRecordsList[row]
+        var elapsedTime = record.endTime.timeIntervalSinceDate(record.startTime)
+        
+        let elapsedTimeText = createDurationString(elapsedTime)
+        cell.textLabel?.text = activityRecordsList[row].type + " - " + elapsedTimeText
         
         return cell
     }

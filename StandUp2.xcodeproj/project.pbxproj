@@ -19,6 +19,8 @@
 		3DB849A51AD36A2F0072A482 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DB849A41AD36A2F0072A482 /* Images.xcassets */; };
 		3DB849A81AD36A2F0072A482 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DB849A61AD36A2F0072A482 /* LaunchScreen.xib */; };
 		3DB849B41AD36A2F0072A482 /* StandUp2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB849B31AD36A2F0072A482 /* StandUp2Tests.swift */; };
+		3DD4A2B71AD88DC90022F8B2 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD4A2B61AD88DC90022F8B2 /* Utils.swift */; };
+		3DD4A2B81AD88DC90022F8B2 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD4A2B61AD88DC90022F8B2 /* Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,7 @@
 		3DB849AD1AD36A2F0072A482 /* StandUp2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StandUp2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB849B21AD36A2F0072A482 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DB849B31AD36A2F0072A482 /* StandUp2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandUp2Tests.swift; sourceTree = "<group>"; };
+		3DD4A2B61AD88DC90022F8B2 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +101,7 @@
 				3DB849A41AD36A2F0072A482 /* Images.xcassets */,
 				3DB849A61AD36A2F0072A482 /* LaunchScreen.xib */,
 				3DB849991AD36A2F0072A482 /* Supporting Files */,
+				3DD4A2B61AD88DC90022F8B2 /* Utils.swift */,
 			);
 			path = StandUp2;
 			sourceTree = "<group>";
@@ -232,6 +236,7 @@
 				3DB8499C1AD36A2F0072A482 /* AppDelegate.swift in Sources */,
 				3D9A0C581AD38308008358F8 /* ActivityRecord.swift in Sources */,
 				3DB8499E1AD36A2F0072A482 /* CurrentActivityViewController.swift in Sources */,
+				3DD4A2B71AD88DC90022F8B2 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,6 +247,7 @@
 				3DB849B41AD36A2F0072A482 /* StandUp2Tests.swift in Sources */,
 				3D9A0C561AD37994008358F8 /* StandUpModel.xcdatamodeld in Sources */,
 				3D9A0C591AD38308008358F8 /* ActivityRecord.swift in Sources */,
+				3DD4A2B81AD88DC90022F8B2 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +366,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -371,6 +378,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
