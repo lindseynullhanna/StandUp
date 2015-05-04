@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D8158621AF818440063DD5D /* PieChartView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8158611AF818440063DD5D /* PieChartView2.swift */; };
-		3D8158631AF818440063DD5D /* PieChartView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8158611AF818440063DD5D /* PieChartView2.swift */; };
+		3D8158621AF818440063DD5D /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8158611AF818440063DD5D /* PieChartView.swift */; };
 		3D9A0C551AD37994008358F8 /* StandUpModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3D9A0C531AD37994008358F8 /* StandUpModel.xcdatamodeld */; };
 		3D9A0C561AD37994008358F8 /* StandUpModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3D9A0C531AD37994008358F8 /* StandUpModel.xcdatamodeld */; };
 		3D9A0C581AD38308008358F8 /* ActivityRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9A0C571AD38308008358F8 /* ActivityRecord.swift */; };
@@ -36,7 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3D8158611AF818440063DD5D /* PieChartView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartView2.swift; sourceTree = "<group>"; };
+		3D8158611AF818440063DD5D /* PieChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 		3D9A0C541AD37994008358F8 /* StandUpModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StandUpModel.xcdatamodel; sourceTree = "<group>"; };
 		3D9A0C571AD38308008358F8 /* ActivityRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityRecord.swift; path = /Users/lindseyhanna/repositories/me/standup2/StandUp2/StandUp2/ActivityRecord.swift; sourceTree = "<absolute>"; };
 		3D9A0C5A1AD38EB6008358F8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -103,7 +102,7 @@
 				3DB849A11AD36A2F0072A482 /* Main.storyboard */,
 				3DB849A41AD36A2F0072A482 /* Images.xcassets */,
 				3DB849A61AD36A2F0072A482 /* LaunchScreen.xib */,
-				3D8158611AF818440063DD5D /* PieChartView2.swift */,
+				3D8158611AF818440063DD5D /* PieChartView.swift */,
 				3DB849991AD36A2F0072A482 /* Supporting Files */,
 				3DD4A2B61AD88DC90022F8B2 /* Utils.swift */,
 			);
@@ -237,7 +236,7 @@
 			files = (
 				3DB849A01AD36A2F0072A482 /* TodayViewController.swift in Sources */,
 				3D9A0C551AD37994008358F8 /* StandUpModel.xcdatamodeld in Sources */,
-				3D8158621AF818440063DD5D /* PieChartView2.swift in Sources */,
+				3D8158621AF818440063DD5D /* PieChartView.swift in Sources */,
 				3DB8499C1AD36A2F0072A482 /* AppDelegate.swift in Sources */,
 				3D9A0C581AD38308008358F8 /* ActivityRecord.swift in Sources */,
 				3DB8499E1AD36A2F0072A482 /* CurrentActivityViewController.swift in Sources */,
@@ -251,7 +250,7 @@
 			files = (
 				3DB849B41AD36A2F0072A482 /* StandUp2Tests.swift in Sources */,
 				3D9A0C561AD37994008358F8 /* StandUpModel.xcdatamodeld in Sources */,
-				3D8158631AF818440063DD5D /* PieChartView2.swift in Sources */,
+				3D8158631AF818440063DD5D /* PieChartView.swift in Sources */,
 				3D9A0C591AD38308008358F8 /* ActivityRecord.swift in Sources */,
 				3DD4A2B81AD88DC90022F8B2 /* Utils.swift in Sources */,
 			);
