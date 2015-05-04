@@ -19,7 +19,7 @@ class PieChartItem {
 
 class PieChartView: UIView {
     var items: [PieChartItem] = [PieChartItem]()
-    var sum: Float = 0
+    var sum: Float = 24*60*60
     
     var gradientFillColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
 
@@ -41,14 +41,14 @@ class PieChartView: UIView {
     
     func clearItems() {
         items.removeAll(keepCapacity: true)
-        sum = 0
+//        sum = 0
     }
     
     func addItem(value: Float, color: UIColor) {
         let item = PieChartItem(value: value, color: color)
         
         items.append(item)
-        sum += value
+//        sum += value
     }
 
     
@@ -69,6 +69,12 @@ class PieChartView: UIView {
         var x: CGFloat = self.center.x
         var y: CGFloat = self.center.y
         var r: CGFloat = (self.bounds.size.width > self.bounds.size.height ? self.bounds.size.height : self.bounds.size.width)/2 * 0.8
+        
+        // Background
+        CGContextSetRGBFillColor(ctx, 0, 0, 0, 0.35 );
+        CGContextAddArc(ctx, x, y, r, 0.0, CGFloat(360.0 * M_PI / 180.0), 0)
+        CGContextClosePath(ctx)
+        CGContextFillPath(ctx);
         
         // Loop through all the values and draw the graph
         startDeg = 0;
@@ -93,10 +99,10 @@ class PieChartView: UIView {
             
             var theta: Float = (360.0 * (currentValue/sum));
             
-            if(theta > 0.0) {
+            if (theta > 0.0) {
                 endDeg += theta;
                 
-                if( startDeg != endDeg ) {
+                if ( startDeg != endDeg ) {
                     CGContextSetRGBFillColor(ctx, red, green, blue, alpha );
                     CGContextMoveToPoint(ctx, x, y);
                     let startAngle: CGFloat = (CGFloat(startDeg)-90.0) * CGFloat(M_PI) / 180.0

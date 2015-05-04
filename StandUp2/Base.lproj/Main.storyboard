@@ -134,8 +134,15 @@
                                     </tableView>
                                 </subviews>
                             </scrollView>
-                            <view contentMode="scaleToFill" id="G68-Pi-NTC" customClass="PieChartView" customModule="StandUp2" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="283"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vqp-lU-8ZZ">
+                                <rect key="frame" x="92" y="30" width="136" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="top" id="G68-Pi-NTC" customClass="PieChartView" customModule="StandUp2" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="320" height="242"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -145,6 +152,7 @@
                     <tabBarItem key="tabBarItem" title="Daily" image="second" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="activityListTable" destination="GYf-26-WLA" id="Lpn-lx-LUC"/>
+                        <outlet property="dateLabel" destination="vqp-lU-8ZZ" id="KQ3-PU-G60"/>
                         <outlet property="pieChartView" destination="G68-Pi-NTC" id="U9d-da-s1k"/>
                     </connections>
                 </viewController>

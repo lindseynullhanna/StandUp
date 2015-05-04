@@ -15,6 +15,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var activityListTable: UITableView!
     @IBOutlet weak var pieChartView: PieChartView!
     
+    @IBOutlet weak var dateLabel: UILabel!
+    
     var activityRecordsList = [ActivityRecord]()
     let tableCellID2 = "ActivityListItem"
     let colors: [String: UIColor] = [
@@ -35,6 +37,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         fetchLog()
         drawPieChartView()
+        dateLabel.text = "Today"
     }
     
     func fetchLog() {
