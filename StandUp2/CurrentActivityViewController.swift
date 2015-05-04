@@ -40,6 +40,29 @@ class CurrentActivityViewController: UIViewController, UITableViewDataSource, UI
         activityTable.delegate = self
         activityTable.dataSource = self
         endActivityButton.enabled = false
+        
+        dummyData()
+    }
+    
+    func dummyData() {
+        var startTime = NSDate()
+        let types = ["Standing", "Sitting", "Walking"]
+        
+        for (var i = 0; i < 10; i++) {
+            
+            var numberofSeconds = NSTimeInterval(i%3*60+i*5*60+5)
+            var end = NSDate(timeInterval: numberofSeconds, sinceDate: startTime)
+            println(types[i%3])
+            println(startTime)
+            println(numberofSeconds)
+            println(end)
+            ActivityRecord.createInManagedObjectContext(
+                self.managedObjectContext!,
+                type: types[i%3],
+                startTime: startTime,
+                endTime: end)
+            startTime = end
+        }
     }
 
     override func didReceiveMemoryWarning() {
