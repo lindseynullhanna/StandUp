@@ -19,6 +19,7 @@ class PieChartItem {
 
 class PieChartView: UIView {
     var items: [PieChartItem] = [PieChartItem]()
+    // total is always 24 hours
     var sum: Float = 24*60*60
     
     var gradientFillColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
