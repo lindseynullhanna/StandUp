@@ -13,9 +13,15 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     @IBOutlet weak var activityListTable: UITableView!
+    @IBOutlet weak var pieChartView: PieChartView!
     
     var activityRecordsList = [ActivityRecord]()
     let tableCellID2 = "ActivityListItem"
+    let colors: [String: UIColor] = [
+        "Standing": UIColor.blueColor(),
+        "Sitting": UIColor.greenColor(),
+        "Walking": UIColor.purpleColor()
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +34,12 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         // Do any additional setup after loading the view, typically from a nib.
         
         fetchLog()
+        drawPieChartView()
     }
     
     func fetchLog() {
         let fetchRequest = NSFetchRequest(entityName: "ActivityRecord")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "startTime", ascending: true)]
         if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [ActivityRecord] {
             activityRecordsList = fetchResults
         }
@@ -70,6 +78,16 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         let row = indexPath.row
         println(activityRecordsList[row].type)
     }
-
+    
+    func drawPieChartView() {
+        for (var i = 0; i < activityRecordsList.count; i++) {
+            let record = activityRecordsList[i]
+            
+            var elapsedTime = record.endTime.timeIntervalSinceDate(record.startTime)
+            
+            pieChartView.addItem(Float(elapsedTime), color: colors[record.type]!)
+        }
+        pieChartView.setNeedsDisplay()
+    }
 }
 

@@ -57,81 +57,6 @@ class PieChartView: UIView {
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
         
-        func createCircleMaskUsingCenterPoint(point: CGPoint, radius: Float) -> UIImage {
-            UIGraphicsBeginImageContext( self.bounds.size )
-            let ctx2: CGContextRef = UIGraphicsGetCurrentContext()
-            CGContextSetRGBFillColor(ctx2, 1.0, 1.0, 1.0, 1.0 )
-            CGContextFillRect(ctx2, self.bounds)
-            CGContextSetRGBFillColor(ctx2, 0.0, 0.0, 0.0, 1.0 )
-            CGContextMoveToPoint(ctx2, point.x, point.y)
-            CGContextAddArc(ctx2, point.x, point.y, CGFloat(radius), 0.0, (360.0)*CGFloat(M_PI)/180.0, 0)
-            CGContextClosePath(ctx2)
-            CGContextFillPath(ctx2)
-            let maskImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsPopContext()
-            
-            return maskImage;
-        }
-        
-        func createGradientImageUsingRect(rect: CGRect) -> UIImage {
-            let color = gradientFillColor
-            let cgColor = color.CGColor
-            
-            let numComponents = CGColorGetNumberOfComponents(cgColor)
-            
-            var red: CGFloat = 0
-            var green: CGFloat = 0
-            var blue: CGFloat = 0
-            var alpha: CGFloat = 0
-            
-            if (numComponents == 4) {
-                let components = CGColorGetComponents(cgColor)
-                red = components[0]
-                green = components[1]
-                blue = components[2]
-                alpha = components[3]
-            }
-            
-            UIGraphicsBeginImageContext( rect.size );
-            let ctx3 = UIGraphicsGetCurrentContext();
-            
-            let locationsCount: Int = 2
-            let locations: [CGFloat] = [ 1.0-CGFloat(gradientStart), 1.0-CGFloat(gradientEnd) ]
-            let components: [CGFloat] = [0, 0, 0, 0, red, green, blue, alpha]
-            
-            let rgbColorspace = CGColorSpaceCreateDeviceRGB();
-            let gradient = CGGradientCreateWithColorComponents(rgbColorspace, components, locations, locationsCount);
-            
-            let currentBounds = rect;
-            let topCenterPoint = CGPointMake(CGRectGetMidX(currentBounds), CGRectGetMaxY(currentBounds));
-            let bottomCenterPoint = CGPointMake(CGRectGetMidX(currentBounds), CGRectGetMinY(currentBounds));
-            CGContextDrawLinearGradient(ctx3, gradient, topCenterPoint, bottomCenterPoint, 0);
-
-            
-            let gradientImage: UIImage = UIGraphicsGetImageFromCurrentImageContext();
-            UIGraphicsPopContext();
-            
-            return gradientImage;
-        }
-        
-        func maskImage(image: UIImage, maskImage: UIImage) -> UIImage {
-            
-            let maskRef: CGImageRef = maskImage.CGImage;
-            
-            let mask: CGImageRef = CGImageMaskCreate(CGImageGetWidth(maskRef),
-                CGImageGetHeight(maskRef),
-                CGImageGetBitsPerComponent(maskRef),
-                CGImageGetBitsPerPixel(maskRef),
-                CGImageGetBytesPerRow(maskRef),
-                CGImageGetDataProvider(maskRef), nil, false);
-            
-            let masked: CGImageRef = CGImageCreateWithMask(image.CGImage, mask)
-            
-            let ret = UIImage(CGImage: masked)!
-            return ret
-        }
-
-        
         // Drawing code
         
         var startDeg: Float = 0
@@ -144,11 +69,6 @@ class PieChartView: UIView {
         var x: CGFloat = self.center.x
         var y: CGFloat = self.center.y
         var r: CGFloat = (self.bounds.size.width > self.bounds.size.height ? self.bounds.size.height : self.bounds.size.width)/2 * 0.8
-        
-//        // Draw a thin line around the circle
-//        CGContextAddArc(ctx, x, y, r, 0.0, CGFloat(360.0 * M_PI / 180.0), 0)
-//        CGContextClosePath(ctx)
-//        CGContextDrawPath(ctx, kCGPathStroke)
         
         // Loop through all the values and draw the graph
         startDeg = 0;
@@ -196,20 +116,6 @@ class PieChartView: UIView {
         CGContextAddArc(ctx, x, y, r*0.75, 0.0, CGFloat(360.0 * M_PI / 180.0), 0)
         CGContextClosePath(ctx)
         CGContextFillPath(ctx);
-        
-//        // Gradient overlay
-//        let center = CGPointMake(x, y)
-        
-//        let maskImg: UIImage = createCircleMaskUsingCenterPoint(center, Float(r))
-//        let gradientImage = createGradientImageUsingRect(self.bounds)
-//        let fadeImage = maskImage(gradientImage, maskImg)
-        
-        
-        // Shadows
-//        self.layer.shadowRadius = 3;
-//        self.layer.shadowColor = UIColor.blackColor().CGColor
-//        self.layer.shadowOpacity = 0.6;
-//        self.layer.shadowOffset = CGSizeMake(5.0, 5.0);
 
     }
 
