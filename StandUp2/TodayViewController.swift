@@ -82,7 +82,24 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         println(activityRecordsList[row].type)
     }
     
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+            // handle delete (by removing the data from your array and updating the tableview)
+            let itemToDelete = activityRecordsList[indexPath.row]
+            
+            self.managedObjectContext?.deleteObject(itemToDelete)
+            self.fetchLog()
+            activityListTable.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            drawPieChartView()
+        }
+    }
+    
     func drawPieChartView() {
+        pieChartView.clearItems()
         for (var i = 0; i < activityRecordsList.count; i++) {
             let record = activityRecordsList[i]
             

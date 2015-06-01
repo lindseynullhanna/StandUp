@@ -114,20 +114,12 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ActivityListItem" textLabel="NqY-e7-CtC" style="IBUITableViewCellStyleDefault" id="B0V-dp-N0L">
+                                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="ActivityListItem" selectionStyle="default" indentationWidth="10" reuseIdentifier="ActivityListItem" id="wJh-CP-yqW">
                                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="B0V-dp-N0L" id="5q5-wB-TtI">
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wJh-CP-yqW" id="Vrb-ZG-9pR">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NqY-e7-CtC">
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                         </prototypes>
@@ -146,12 +138,23 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Hap-CE-WX0" userLabel="Add " colorLabel="IBBuiltInLabel-Green">
+                                <rect key="frame" x="260" y="250" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addNewActivity:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="zSd-fG-zlN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Daily" image="second" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="activityListTable" destination="GYf-26-WLA" id="Lpn-lx-LUC"/>
+                        <outlet property="addItemButton" destination="Hap-CE-WX0" id="2QZ-ek-gYX"/>
                         <outlet property="dateLabel" destination="vqp-lU-8ZZ" id="KQ3-PU-G60"/>
                         <outlet property="pieChartView" destination="G68-Pi-NTC" id="U9d-da-s1k"/>
                     </connections>
