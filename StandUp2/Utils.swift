@@ -27,4 +27,48 @@ public func createDurationString(timeInterval: NSTimeInterval) -> String {
         return durationString
 }
 
+public class Record {
+    var activityType: String
+    var startTime: NSDate
+    var endTime: NSDate
+    
+    init(startTime: NSDate, endTime: NSDate, activityType: String) {
+        self.startTime = startTime
+        self.endTime = endTime
+        self.activityType = activityType
+    }
+}
+
+public func getDummyData() -> [Record]{
+    var startTime = NSDate(timeInterval: NSTimeInterval(60*60*8), sinceDate: NSCalendar.currentCalendar().startOfDayForDate(NSDate()))
+    
+    let types = ["Standing", "Sitting", "Walking"]
+    
+    var data: [Record] = [Record]()
+    
+    // 4 hours standing
+    var endTime = NSDate(timeInterval: NSTimeInterval(60*60*4), sinceDate: startTime)
+    data.append(Record(startTime: startTime, endTime: endTime, activityType: types[0]))
+    
+    // 30 min out
+    startTime = endTime
+    endTime = NSDate(timeInterval: NSTimeInterval(60*60*0.5), sinceDate: startTime)
+    
+    // 1.5 hours sitting
+    startTime = endTime
+    endTime = NSDate(timeInterval: NSTimeInterval(60*60*1.5), sinceDate: startTime)
+    data.append(Record(startTime: startTime, endTime: endTime, activityType: types[1]))
+    
+    // 1 hour walking
+    startTime = endTime
+    endTime = NSDate(timeInterval: NSTimeInterval(60*60*1), sinceDate: startTime)
+    data.append(Record(startTime: startTime, endTime: endTime, activityType: types[2]))
+    
+    // 1 hour standing
+    startTime = endTime
+    endTime = NSDate(timeInterval: NSTimeInterval(60*60*1), sinceDate: startTime)
+    data.append(Record(startTime: startTime, endTime: endTime, activityType: types[0]))
+    
+    return data
+}
 

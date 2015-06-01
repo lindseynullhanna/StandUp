@@ -86,9 +86,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         for (var i = 0; i < activityRecordsList.count; i++) {
             let record = activityRecordsList[i]
             
-            var elapsedTime = record.endTime.timeIntervalSinceDate(record.startTime)
-            
-            pieChartView.addItem(Float(elapsedTime), color: colors[record.type]!)
+            pieChartView.addItem(record.startTime, endTime: record.endTime, activityType: record.type)
         }
         pieChartView.setNeedsDisplay()
     }

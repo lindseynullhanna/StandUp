@@ -4,16 +4,28 @@
 //  Created by Vito Bellini on 03/01/15.
 //  Copyright (c) 2015 Vito Bellini. All rights reserved.
 //
+//  Modified by Lindsey Hanna on 4/6/15
+//
 
 import UIKit
 
+let colors: [String: UIColor] = [
+    "Standing": UIColor.blueColor(),
+    "Sitting": UIColor.greenColor(),
+    "Walking": UIColor.purpleColor()
+]
+
 class PieChartItem {
     var color: UIColor
-    var value: Float
+    var activityType: String
+    var startTime: NSDate
+    var endTime: NSDate
     
-    init(value: Float = 0, color: UIColor) {
-        self.color = color
-        self.value = value
+    init(startTime: NSDate, endTime: NSDate, activityType: String) {
+        self.color = colors[activityType]!
+        self.startTime = startTime
+        self.endTime = endTime
+        self.activityType = activityType
     }
 }
 
@@ -42,17 +54,19 @@ class PieChartView: UIView {
     
     func clearItems() {
         items.removeAll(keepCapacity: true)
-//        sum = 0
     }
     
-    func addItem(value: Float, color: UIColor) {
-        let item = PieChartItem(value: value, color: color)
+    func addItem(startTime: NSDate, endTime: NSDate, activityType: String) {
+        
+        
+        let item = PieChartItem(startTime: startTime, endTime: endTime, activityType: activityType)
         
         items.append(item)
-//        sum += value
     }
 
-    
+    func getDegree(value: Float) -> Float {
+        return Float(360.0 * (value/sum));
+    }
 
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -78,9 +92,8 @@ class PieChartView: UIView {
         CGContextFillPath(ctx);
         
         // Loop through all the values and draw the graph
-        startDeg = 0;
-        
         for item in self.items {
+            // TODO: actual times
             let numComponents = CGColorGetNumberOfComponents(item.color.CGColor)
             
             var red: CGFloat = 0
@@ -96,26 +109,24 @@ class PieChartView: UIView {
                 alpha = components[3]
             }
             
-            var currentValue: Float = item.value;
+            // midnight of current day
+            let startOfDay = NSCalendar.currentCalendar().startOfDayForDate(item.startTime)
             
-            var theta: Float = (360.0 * (currentValue/sum));
+            // startDeg = startTime since midnight
+            startDeg = getDegree(Float(item.startTime.timeIntervalSinceDate(startOfDay)))
             
-            if (theta > 0.0) {
-                endDeg += theta;
-                
-                if ( startDeg != endDeg ) {
-                    CGContextSetRGBFillColor(ctx, red, green, blue, alpha );
-                    CGContextMoveToPoint(ctx, x, y);
-                    let startAngle: CGFloat = (CGFloat(startDeg)-90.0) * CGFloat(M_PI) / 180.0
-                    let endAngle: CGFloat = (CGFloat(endDeg)-90.0) * CGFloat(M_PI) / 180.0
-                    CGContextAddArc(ctx, x, y, r, startAngle, endAngle, 0)
-                    CGContextClosePath(ctx);
-                    CGContextFillPath(ctx);
-                }
-                
+            // endDeg = endTime since midnight
+            var endDeg = getDegree(Float(item.endTime.timeIntervalSinceDate(startOfDay)))
+
+            if (startDeg != endDeg) {
+                CGContextSetRGBFillColor(ctx, red, green, blue, alpha );
+                CGContextMoveToPoint(ctx, x, y);
+                let startAngle: CGFloat = (CGFloat(startDeg)-90.0) * CGFloat(M_PI) / 180.0
+                let endAngle: CGFloat = (CGFloat(endDeg)-90.0) * CGFloat(M_PI) / 180.0
+                CGContextAddArc(ctx, x, y, r, startAngle, endAngle, 0)
+                CGContextClosePath(ctx);
+                CGContextFillPath(ctx);
             }
-            
-            startDeg = endDeg;
         }
         
         // Make it a donut
@@ -123,7 +134,25 @@ class PieChartView: UIView {
         CGContextAddArc(ctx, x, y, r*0.75, 0.0, CGFloat(360.0 * M_PI / 180.0), 0)
         CGContextClosePath(ctx)
         CGContextFillPath(ctx);
-
+        
+        // add clock lines
+        CGContextSetRGBStrokeColor(ctx, 0, 0, 0, 0.25)
+        CGContextSetLineWidth(ctx, 1)
+        // -midnight
+        CGContextMoveToPoint(ctx, x, y-r)
+        CGContextAddLineToPoint(ctx, x, y-r*0.75)
+        CGContextDrawPath(ctx, kCGPathStroke)
+        // -6am
+        CGContextMoveToPoint(ctx, x+r, y)
+        CGContextAddLineToPoint(ctx, x+r*0.75, y)
+        CGContextDrawPath(ctx, kCGPathStroke)
+        // -noon
+        CGContextMoveToPoint(ctx, x, y+r)
+        CGContextAddLineToPoint(ctx, x, y+r*0.75)
+        CGContextDrawPath(ctx, kCGPathStroke)
+        // -6pm
+        CGContextMoveToPoint(ctx, x-r, y)
+        CGContextAddLineToPoint(ctx, x-r*0.75, y)
+        CGContextDrawPath(ctx, kCGPathStroke)
     }
-
 }
