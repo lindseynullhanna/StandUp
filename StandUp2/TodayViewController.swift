@@ -12,10 +12,19 @@ import CoreData
 class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
+    // Outlets
     @IBOutlet weak var activityListTable: UITableView!
     @IBOutlet weak var pieChartView: PieChartView!
     
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var addItemButton: UIButton!
+    
+    // Actions
+    @IBAction func refreshButton(sender: AnyObject) {
+        fetchLog()
+        drawPieChartView()
+    }
+
     
     var activityRecordsList = [ActivityRecord]()
     let tableCellID2 = "ActivityListItem"
@@ -46,6 +55,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [ActivityRecord] {
             activityRecordsList = fetchResults
         }
+        activityListTable.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -97,7 +107,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             drawPieChartView()
         }
     }
-    
+
     func drawPieChartView() {
         pieChartView.clearItems()
         for (var i = 0; i < activityRecordsList.count; i++) {

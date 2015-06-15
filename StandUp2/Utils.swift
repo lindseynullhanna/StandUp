@@ -10,6 +10,10 @@ import Foundation
 
 public func createDurationString(timeInterval: NSTimeInterval) -> String {
         var elapsedTime = timeInterval
+    
+    if (elapsedTime == 0) {
+        return "none"
+    }
         // set variables
         let hours = UInt8(elapsedTime / 3600.0)
         elapsedTime -= (NSTimeInterval(hours) * 3600)
