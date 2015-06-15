@@ -22,6 +22,7 @@ class CurrentActivityViewController: UIViewController, UITableViewDataSource, UI
     // Actions
     @IBAction func endCurrentActivity(sender: UIButton) {
         stopTimerAndRecord(prevActivityType)
+        currentActivityLabel.text = "Inactive"
     }
     
     // Activity table
