@@ -34,6 +34,7 @@ class AddEditViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     // ACTIONS
     @IBAction func activityButton(sender: AnyObject) {
         clearPickerViews()
+        activityLabel.textColor = UIColor.greenColor()
         pickerContainer.addSubview(activityPicker)
     }
     @IBAction func cancelButton(sender: AnyObject) {
@@ -41,11 +42,13 @@ class AddEditViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     @IBAction func startTimeButton(sender: AnyObject) {
         clearPickerViews()
+        startTimeLabel.textColor = UIColor.greenColor()
         pickerContainer.addSubview(startTimePicker)
         startTimePicker.addTarget(self, action: Selector("datePickerChanged:"), forControlEvents: UIControlEvents.ValueChanged)
     }
     @IBAction func endTimeButton(sender: AnyObject) {
         clearPickerViews()
+        endTimeLabel.textColor = UIColor.greenColor()
         pickerContainer.addSubview(endTimePicker)
         endTimePicker.addTarget(self, action: Selector("datePickerChanged:"), forControlEvents: UIControlEvents.ValueChanged)
     }
@@ -153,6 +156,10 @@ class AddEditViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     func clearPickerViews() {
+        activityLabel.textColor = UIColor.blackColor()
+        startTimeLabel.textColor = UIColor.blackColor()
+        endTimeLabel.textColor = UIColor.blackColor()
+        
         for (var i = 0; i < pickerContainer.subviews.count; i++) {
             pickerContainer.subviews[i].removeFromSuperview()
         }
