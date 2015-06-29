@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
         <!--Record-->
@@ -28,7 +28,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="eQI-3X-4or">
-                                <rect key="frame" x="0.0" y="235" width="320" height="285"/>
+                                <rect key="frame" x="0.0" y="235.00000131926012" width="320" height="285"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activities" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="j5a-kA-WUp">
@@ -43,7 +43,7 @@
                                         <rect key="frame" x="0.0" y="66" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mkk-gE-gJ3" id="6kh-nU-Vd7">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cVB-yl-lCO">
@@ -99,11 +99,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="F5u-V1-sMX">
-                                <rect key="frame" x="0.0" y="283" width="320" height="237"/>
+                                <rect key="frame" x="0.0" y="283" width="320" height="237.00000349019504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="GYf-26-WLA">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="237"/>
+                                        <rect key="frame" x="0.0" y="3.4901950414223393e-06" width="320" height="237"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
@@ -111,7 +111,7 @@
                                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wJh-CP-yqW" id="Vrb-ZG-9pR">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
@@ -135,11 +135,11 @@
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Svp-cY-qAU" kind="modal" modalPresentationStyle="fullScreen" id="utE-f8-PMh"/>
+                                    <segue destination="Svp-cY-qAU" kind="modal" id="4Ye-74-Y7R"/>
                                 </connections>
                             </button>
                             <view contentMode="top" id="G68-Pi-NTC" customClass="PieChartView" customModule="StandUp2" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="320" height="242"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="228"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CRU-UU-bqi">
@@ -173,7 +173,7 @@
         <!--Add Edit View Controller-->
         <scene sceneID="z8m-sU-hvr">
             <objects>
-                <viewController id="Svp-cY-qAU" customClass="AddEditViewController" customModule="StandUp2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addEdit" id="Svp-cY-qAU" customClass="AddEditViewController" customModule="StandUp2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UTl-K2-W30">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -278,37 +278,35 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="addActivityButton:" destination="Svp-cY-qAU" eventType="touchUpInside" id="2q3-QS-7ne"/>
+                                    <action selector="submitButton:" destination="Svp-cY-qAU" eventType="touchUpInside" id="3nJ-YO-Bki"/>
                                 </connections>
                             </button>
                             <view contentMode="bottom" id="SDc-xC-xyQ">
-                                <rect key="frame" x="0.0" y="301" width="320" height="267"/>
+                                <rect key="frame" x="0.0" y="301" width="320" height="240"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BQS-PC-vyu">
-                                        <rect key="frame" x="264" y="237" width="48" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                        <state key="normal" title="Cancel">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="cancelButton:" destination="Svp-cY-qAU" eventType="touchUpInside" id="Iae-vv-GfK"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BQS-PC-vyu">
+                                <rect key="frame" x="264" y="538" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelButton:" destination="Svp-cY-qAU" eventType="touchUpInside" id="Iae-vv-GfK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="iO4-eh-LFG"/>
                     <connections>
                         <outlet property="activityLabel" destination="rWz-K9-C7u" id="dG6-QV-Bkx"/>
-                        <outlet property="addActivityButtonOutlet" destination="Xy3-vW-1Yj" id="oNV-8e-IWk"/>
                         <outlet property="durationLabel" destination="d9r-xr-AUU" id="w4o-Vj-7C7"/>
                         <outlet property="endTimeLabel" destination="3eQ-QZ-Uhf" id="FvI-Ho-Ws8"/>
                         <outlet property="pickerContainer" destination="SDc-xC-xyQ" id="10F-JK-qub"/>
                         <outlet property="startTimeLabel" destination="mgz-E1-9Ag" id="8oF-a3-cRM"/>
+                        <outlet property="submitButtonOutlet" destination="Xy3-vW-1Yj" id="NFV-6g-TJx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3cY-9g-Jwk" userLabel="First Responder" sceneMemberID="firstResponder"/>

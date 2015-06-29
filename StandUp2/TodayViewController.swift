@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     // Outlets
@@ -21,10 +21,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     // Actions
     @IBAction func refreshButton(sender: AnyObject) {
-        fetchLog()
-        drawPieChartView()
+        refreshTodayView()
     }
-
     
     var activityRecordsList = [ActivityRecord]()
     let tableCellID2 = "ActivityListItem"
@@ -33,6 +31,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         "Sitting": UIColor.greenColor(),
         "Walking": UIColor.purpleColor()
     ]
+    
+    var addEditModal = AddEditViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +47,11 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         fetchLog()
         drawPieChartView()
         dateLabel.text = "Today"
+    }
+    
+    func refreshTodayView() {
+        fetchLog()
+        drawPieChartView()
     }
     
     func fetchLog() {
@@ -97,15 +102,31 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (editingStyle == UITableViewCellEditingStyle.Delete) {
-            // handle delete (by removing the data from your array and updating the tableview)
-            let itemToDelete = activityRecordsList[indexPath.row]
+        // placeholder so editActionsforRowAtIndexPath works
+    }
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]?  {
+        // 1: delete
+        var deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Delete" , handler: { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+            let itemToDelete = self.activityRecordsList[indexPath.row]
             
             self.managedObjectContext?.deleteObject(itemToDelete)
             self.fetchLog()
-            activityListTable.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-            drawPieChartView()
-        }
+            self.drawPieChartView()
+        })
+        
+        // 2: edit
+        var editAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: "Edit" , handler: { (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
+            tableView.editing = false
+            
+            var editVC = self.storyboard!.instantiateViewControllerWithIdentifier("addEdit") as! AddEditViewController
+            editVC.isEditPicker = true
+            editVC.inputRecord = self.activityRecordsList[indexPath.row]
+            self.showViewController(editVC, sender: editVC)
+        })
+        editAction.backgroundColor = UIColor.greenColor();
+        
+        return [deleteAction, editAction]
     }
 
     func drawPieChartView() {

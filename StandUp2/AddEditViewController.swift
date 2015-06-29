@@ -15,13 +15,24 @@ class AddEditViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     // CONSTANTS
-    var activityTypes = ["Standing", "Walking", "Sitting"]
-    var formatter = NSDateFormatter()
+    let activityTypes = ["Standing", "Walking", "Sitting"]
+    let formatter = NSDateFormatter()
+    
+    // SET-UP
+    var isEditPicker : Bool = false
+    var inputRecord : ActivityRecord?
+//    var inputStartTime = NSDate()
+//    var inputEndTime = NSDate()
+//    var inputActivityType : String = "Standing"
     
     // PICKERS
     var activityPicker = UIPickerView()
     var startTimePicker = UIDatePicker()
     var endTimePicker = UIDatePicker()
+    
+    var newType = ""
+    var newStart = NSDate()
+    var newEnd = NSDate()
 
     // OUTLETS
     @IBOutlet weak var activityLabel: UILabel!
@@ -29,7 +40,7 @@ class AddEditViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var endTimeLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var pickerContainer: UIView!
-    @IBOutlet weak var addActivityButtonOutlet: UIButton!
+    @IBOutlet weak var submitButtonOutlet: UIButton!
     
     // ACTIONS
     @IBAction func activityButton(sender: AnyObject) {
@@ -52,21 +63,26 @@ class AddEditViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         pickerContainer.addSubview(endTimePicker)
         endTimePicker.addTarget(self, action: Selector("datePickerChanged:"), forControlEvents: UIControlEvents.ValueChanged)
     }
-    @IBAction func addActivityButton(sender: AnyObject) {
-        // TODO: persist activity
-        ActivityRecord.createInManagedObjectContext(
-            self.managedObjectContext!,
-            type: newType,
-            startTime: newStart,
-            endTime: newEnd
-        )
+    @IBAction func submitButton(sender: AnyObject) {
+        if (isEditPicker && inputRecord != nil) {
+            // edit existing record
+            inputRecord!.type = newType
+            inputRecord!.startTime = newStart
+            inputRecord!.endTime = newEnd
+            self.managedObjectContext!.save(nil)
+        } else {
+            // add new record
+            ActivityRecord.createInManagedObjectContext(
+                self.managedObjectContext!,
+                type: newType,
+                startTime: newStart,
+                endTime: newEnd
+            )
+        }
+        
+        // TODO: refreshTodayView somehow dammit
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-    
-    var newType = ""
-    var newStart = NSDate()
-    var newEnd = NSDate()
-    
     
     @IBAction func datePickerChanged(sender: UIDatePicker) {
         
@@ -81,16 +97,17 @@ class AddEditViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         var elapsedTime = newEnd.timeIntervalSinceDate(newStart)
         
         if (elapsedTime >= 60) {
-            addActivityButtonOutlet.enabled = true
+            submitButtonOutlet.enabled = true
             durationLabel.text = createDurationString(elapsedTime)
         } else {
-            addActivityButtonOutlet.enabled = false
+            submitButtonOutlet.enabled = false
             durationLabel.text = "invalid selection"
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        println(inputRecord)
 //        
 //        if let moc = self.managedObjectContext {
 //            // TODO get types here
@@ -109,12 +126,26 @@ class AddEditViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         formatter.dateStyle = NSDateFormatterStyle.MediumStyle
         formatter.timeStyle = NSDateFormatterStyle.ShortStyle
         
-        activityLabel.text = newType
-        startTimeLabel.text = formatter.stringFromDate(newStart)
-        endTimeLabel.text = formatter.stringFromDate(newEnd)
-        durationLabel.text = "0 minutes"
-        
-        addActivityButtonOutlet.enabled = false
+        submitButtonOutlet.enabled = false
+
+        // dynamic labels
+        if (isEditPicker && inputRecord != nil) {
+            submitButtonOutlet.setTitle("Submit Edit", forState: UIControlState.Normal)
+            let inputStart = inputRecord!.startTime
+            let inputEnd = inputRecord!.endTime
+            startTimeLabel.text = formatter.stringFromDate(inputStart)
+            endTimeLabel.text = formatter.stringFromDate(inputEnd)
+            activityLabel.text = inputRecord!.type
+            startTimePicker.setDate(inputStart, animated: false)
+            endTimePicker.setDate(inputEnd, animated: false)
+            newStart = inputStart
+            newEnd = inputEnd
+        } else {
+            activityLabel.text = newType
+            startTimeLabel.text = formatter.stringFromDate(newStart)
+            endTimeLabel.text = formatter.stringFromDate(newEnd)
+            durationLabel.text = "0 minutes"
+        }
     }
     
     override func didReceiveMemoryWarning() {
