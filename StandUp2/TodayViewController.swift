@@ -52,7 +52,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     func dummyData() {
     
-        var data = getDummyData()
+        var data = getDummyData(5)
     
         for (var i = 0; i < data.count; i++) {
             var record = data[i]
