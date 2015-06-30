@@ -50,8 +50,6 @@ public func getDummyData(numDays: Int) -> [Record]{
     
     for (var i = 0; i < numDays; i++) {
         var daysBackward = NSTimeInterval(60*60*24*i)
-        print("days backward: ")
-        println(daysBackward)
         
         var startTime = NSDate(timeInterval: (NSTimeInterval(60*60*(8+i)) - daysBackward), sinceDate: NSCalendar.currentCalendar().startOfDayForDate(startDate))
 

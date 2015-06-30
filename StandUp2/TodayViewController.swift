@@ -32,6 +32,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         "Sitting": UIColor.greenColor(),
         "Walking": UIColor.purpleColor()
     ]
+    var requestedDate = NSDate()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +69,15 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     func fetchLog() {
         let fetchRequest = NSFetchRequest(entityName: "ActivityRecord")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "startTime", ascending: true)]
+        fetchRequest.shouldRefreshRefetchedObjects = true
+        
+        var startDate = NSCalendar.currentCalendar().startOfDayForDate(requestedDate)
+        var endDate = NSDate(timeInterval: NSTimeInterval(60*60*24), sinceDate: NSCalendar.currentCalendar().startOfDayForDate(requestedDate))
+        
+        let datePredicate = NSPredicate(format: "startTime BETWEEN {%@, %@}", argumentArray: [startDate, endDate])
+        
+        fetchRequest.predicate = datePredicate
+        
         if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [ActivityRecord] {
             activityRecordsList = fetchResults
         }
@@ -158,6 +168,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     override func viewWillAppear(animated: Bool) {
+        requestedDate = NSDate(timeInterval: NSTimeInterval(-60*60*24), sinceDate: requestedDate)
         refreshTodayView()
     }
     
