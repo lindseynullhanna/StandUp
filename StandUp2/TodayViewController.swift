@@ -24,6 +24,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         refreshTodayView()
     }
     
+    // Local Variables
     var activityRecordsList = [ActivityRecord]()
     let tableCellID2 = "ActivityListItem"
     let colors: [String: UIColor] = [
@@ -44,14 +45,25 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         // Do any additional setup after loading the view, typically from a nib.
         
-        fetchLog()
-        drawPieChartView()
+        
+        dummyData()
+        
+        refreshTodayView()
         dateLabel.text = "Today"
     }
+
+    func dummyData() {
     
-    func refreshTodayView() {
-        fetchLog()
-        drawPieChartView()
+        var data = getDummyData()
+    
+        for (var i = 0; i < data.count; i++) {
+            var record = data[i]
+            ActivityRecord.createInManagedObjectContext(
+                self.managedObjectContext!,
+                type: record.activityType,
+                startTime: record.startTime,
+                endTime: record.endTime)
+        }
     }
     
     func fetchLog() {
@@ -67,6 +79,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     // MARK:  UITextFieldDelegate Methods
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -93,8 +106,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        let row = indexPath.row
-        println(activityRecordsList[row].type)
+//        let row = indexPath.row
+//        println(activityRecordsList[row].type)
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -111,8 +124,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             let itemToDelete = self.activityRecordsList[indexPath.row]
             
             self.managedObjectContext?.deleteObject(itemToDelete)
-            self.fetchLog()
-            self.drawPieChartView()
+            self.refreshTodayView()
         })
         
         // 2: edit
@@ -127,6 +139,12 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         editAction.backgroundColor = UIColor.greenColor();
         
         return [deleteAction, editAction]
+    }
+    
+    // MARK: rendering methods
+    func refreshTodayView() {
+        fetchLog()
+        drawPieChartView()
     }
 
     func drawPieChartView() {

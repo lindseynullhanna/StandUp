@@ -41,22 +41,6 @@ class CurrentActivityViewController: UIViewController, UITableViewDataSource, UI
         activityTable.delegate = self
         activityTable.dataSource = self
         endActivityButton.enabled = false
-        
-        dummyData()
-    }
-    
-    func dummyData() {
-        
-        var data = getDummyData()
-        
-        for (var i = 0; i < data.count; i++) {
-            var record = data[i]
-            ActivityRecord.createInManagedObjectContext(
-                self.managedObjectContext!,
-                type: record.activityType,
-                startTime: record.startTime,
-                endTime: record.endTime)
-        }
     }
 
     override func didReceiveMemoryWarning() {
