@@ -9,6 +9,11 @@
 import UIKit
 import CoreData
 
+
+//protocol AddEditViewControllerDelegate:class {
+//    func myVCDidFinish(controller:AddEditViewController, text:String)
+//}
+//
 class AddEditViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     // Retreive the managedObjectContext from AppDelegate
@@ -21,9 +26,7 @@ class AddEditViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     // SET-UP
     var isEditPicker : Bool = false
     var inputRecord : ActivityRecord?
-//    var inputStartTime = NSDate()
-//    var inputEndTime = NSDate()
-//    var inputActivityType : String = "Standing"
+//    var delegate : AddEditViewControllerDelegate?
     
     // PICKERS
     var activityPicker = UIPickerView()
@@ -49,7 +52,7 @@ class AddEditViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         pickerContainer.addSubview(activityPicker)
     }
     @IBAction func cancelButton(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismissView()
     }
     @IBAction func startTimeButton(sender: AnyObject) {
         clearPickerViews()
@@ -79,13 +82,9 @@ class AddEditViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                 endTime: newEnd
             )
         }
-        
-        // TODO: refreshTodayView somehow dammit
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissView()
     }
-    
     @IBAction func datePickerChanged(sender: UIDatePicker) {
-        
         if (sender === startTimePicker) {
             newStart = startTimePicker.date
             startTimeLabel.text = formatter.stringFromDate(newStart)
@@ -107,8 +106,7 @@ class AddEditViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        println(inputRecord)
-//        
+
 //        if let moc = self.managedObjectContext {
 //            // TODO get types here
 //        }
@@ -125,7 +123,6 @@ class AddEditViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         // default labels
         formatter.dateStyle = NSDateFormatterStyle.MediumStyle
         formatter.timeStyle = NSDateFormatterStyle.ShortStyle
-        
         submitButtonOutlet.enabled = false
 
         // dynamic labels
@@ -140,6 +137,7 @@ class AddEditViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             endTimePicker.setDate(inputEnd, animated: false)
             newStart = inputStart
             newEnd = inputEnd
+            newType = inputRecord!.type
         } else {
             activityLabel.text = newType
             startTimeLabel.text = formatter.stringFromDate(newStart)
@@ -153,7 +151,7 @@ class AddEditViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         // Dispose of any resources that can be recreated.
     }
     
-    // UIPICKERVIEW
+    // MARK: UIPICKERVIEW
     // returns the number of 'columns' to display.
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         if (pickerView === activityPicker) {
@@ -194,5 +192,11 @@ class AddEditViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         for (var i = 0; i < pickerContainer.subviews.count; i++) {
             pickerContainer.subviews[i].removeFromSuperview()
         }
+    }
+    
+    // MARK: delegate methods
+    func dismissView() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+//        delegate!.myVCDidFinish(self, text: "modalDismissed")
     }
 }

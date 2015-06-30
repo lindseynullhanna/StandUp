@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate/*, AddEditViewControllerDelegate*/ {
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     // Outlets
@@ -32,8 +32,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         "Sitting": UIColor.greenColor(),
         "Walking": UIColor.purpleColor()
     ]
-    
-    var addEditModal = AddEditViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +63,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
                 endTime: record.endTime)
         }
     }
-    
+
+    // TODO: only fetch for specific day
     func fetchLog() {
         let fetchRequest = NSFetchRequest(entityName: "ActivityRecord")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "startTime", ascending: true)]
@@ -131,12 +130,13 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         var editAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: "Edit" , handler: { (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
             tableView.editing = false
             
-            var editVC = self.storyboard!.instantiateViewControllerWithIdentifier("addEdit") as! AddEditViewController
+            // show AddEditViewController
+            var editVC = self.storyboard?.instantiateViewControllerWithIdentifier("addEdit") as! AddEditViewController
             editVC.isEditPicker = true
             editVC.inputRecord = self.activityRecordsList[indexPath.row]
-            self.showViewController(editVC, sender: editVC)
+            self.presentViewController(editVC, animated: true, completion: nil)
         })
-        editAction.backgroundColor = UIColor.greenColor();
+        editAction.backgroundColor = UIColor.grayColor();
         
         return [deleteAction, editAction]
     }
@@ -156,5 +156,27 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         pieChartView.setNeedsDisplay()
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        refreshTodayView()
+    }
+    
+    // MARK: AddEditViewControllerDelegate Methods
+//    func myVCDidFinish(controller: AddEditViewController, text: String) {
+//        controller.dismissViewControllerAnimated(true, completion: nil)
+//    }
+    
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if segue.identifier == "addEditSegue" {
+//            let vc = segue.destinationViewController as! AddEditViewController
+//            vc.delegate = self
+//            
+//            // if we are editing, let the AddEditViewController know
+//            if let isEdit : AnyObject? = sender?["inputRecord"] {
+//                vc.isEditPicker = true
+//                vc.inputRecord = sender?["inputRecord"] as? ActivityRecord
+//            }
+//        }
+//    }
 }
 

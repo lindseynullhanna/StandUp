@@ -75,4 +75,3 @@ public func getDummyData() -> [Record]{
     
     return data
 }
-
