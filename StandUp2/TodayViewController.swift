@@ -36,11 +36,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     // Local Variables
     var activityRecordsList = [ActivityRecord]()
     let tableCellID2 = "ActivityListItem"
-    let colors: [String: UIColor] = [
-        "Standing": UIColor.blueColor(),
-        "Sitting": UIColor.greenColor(),
-        "Walking": UIColor.purpleColor()
-    ]
     var requestedDate = NSDate()
     
     override func viewDidLoad() {

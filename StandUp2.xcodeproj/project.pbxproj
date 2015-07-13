@@ -10,6 +10,8 @@
 		3D8158621AF818440063DD5D /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8158611AF818440063DD5D /* PieChartView.swift */; };
 		3D9845C01B544C1B00087587 /* TrendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9845BF1B544C1B00087587 /* TrendsViewController.swift */; };
 		3D9845C11B544C1B00087587 /* TrendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9845BF1B544C1B00087587 /* TrendsViewController.swift */; };
+		3D9845C31B5453A300087587 /* TrendsChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9845C21B5453A300087587 /* TrendsChartView.swift */; };
+		3D9845C41B5453A300087587 /* TrendsChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9845C21B5453A300087587 /* TrendsChartView.swift */; };
 		3D9A0C551AD37994008358F8 /* StandUpModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3D9A0C531AD37994008358F8 /* StandUpModel.xcdatamodeld */; };
 		3D9A0C561AD37994008358F8 /* StandUpModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3D9A0C531AD37994008358F8 /* StandUpModel.xcdatamodeld */; };
 		3D9A0C581AD38308008358F8 /* ActivityRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9A0C571AD38308008358F8 /* ActivityRecord.swift */; };
@@ -42,6 +44,7 @@
 /* Begin PBXFileReference section */
 		3D8158611AF818440063DD5D /* PieChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 		3D9845BF1B544C1B00087587 /* TrendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendsViewController.swift; sourceTree = "<group>"; };
+		3D9845C21B5453A300087587 /* TrendsChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendsChartView.swift; sourceTree = "<group>"; };
 		3D9A0C541AD37994008358F8 /* StandUpModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StandUpModel.xcdatamodel; sourceTree = "<group>"; };
 		3D9A0C571AD38308008358F8 /* ActivityRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityRecord.swift; path = /Users/lindseyhanna/repositories/me/standup2/StandUp2/StandUp2/ActivityRecord.swift; sourceTree = "<absolute>"; };
 		3D9A0C5A1AD38EB6008358F8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -107,6 +110,7 @@
 				3DB8499D1AD36A2F0072A482 /* CurrentActivityViewController.swift */,
 				3DB8499F1AD36A2F0072A482 /* TodayViewController.swift */,
 				3D9845BF1B544C1B00087587 /* TrendsViewController.swift */,
+				3D9845C21B5453A300087587 /* TrendsChartView.swift */,
 				3DA33BA11B2F436A000D0C79 /* AddEditViewController.swift */,
 				3DB849A11AD36A2F0072A482 /* Main.storyboard */,
 				3DB849A41AD36A2F0072A482 /* Images.xcassets */,
@@ -246,6 +250,7 @@
 				3DB849A01AD36A2F0072A482 /* TodayViewController.swift in Sources */,
 				3D9A0C551AD37994008358F8 /* StandUpModel.xcdatamodeld in Sources */,
 				3D8158621AF818440063DD5D /* PieChartView.swift in Sources */,
+				3D9845C31B5453A300087587 /* TrendsChartView.swift in Sources */,
 				3DB8499C1AD36A2F0072A482 /* AppDelegate.swift in Sources */,
 				3DA33BA21B2F436A000D0C79 /* AddEditViewController.swift in Sources */,
 				3D9A0C581AD38308008358F8 /* ActivityRecord.swift in Sources */,
@@ -264,6 +269,7 @@
 				3DB849B41AD36A2F0072A482 /* StandUp2Tests.swift in Sources */,
 				3DA33BA31B2F436A000D0C79 /* AddEditViewController.swift in Sources */,
 				3D9A0C561AD37994008358F8 /* StandUpModel.xcdatamodeld in Sources */,
+				3D9845C41B5453A300087587 /* TrendsChartView.swift in Sources */,
 				3D9A0C591AD38308008358F8 /* ActivityRecord.swift in Sources */,
 				3DD4A2B81AD88DC90022F8B2 /* Utils.swift in Sources */,
 			);

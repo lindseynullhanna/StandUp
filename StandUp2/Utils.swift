@@ -7,6 +7,18 @@
 //
 
 import Foundation
+import UIKit
+
+// CONSTANTS
+
+let ACTIVITY_COLORS: [String: UIColor] = [
+    "Standing": UIColor.blueColor(),
+    "Sitting": UIColor.greenColor(),
+    "Walking": UIColor.purpleColor()
+]
+
+
+// PUBLIC FUNCTIONS
 
 public func createDurationString(timeInterval: NSTimeInterval) -> String {
         var elapsedTime = timeInterval
