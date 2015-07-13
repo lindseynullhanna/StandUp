@@ -32,12 +32,15 @@ class PieChartItem {
 class PieChartView: UIView {
     var items: [PieChartItem] = [PieChartItem]()
     // total is always 24 hours
-    var sum: Float = 24*60*60
+    let sum: Float = 24*60*60
     
     var gradientFillColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
 
     var gradientStart: Float = 0.3
     var gradientEnd: Float = 1
+    
+    
+    let donutRadius : CGFloat = 0.75
 
     
     override init(frame: CGRect) {
@@ -77,19 +80,19 @@ class PieChartView: UIView {
         var startDeg: Float = 0
         var endDeg: Float = 0
         
-        let ctx: CGContextRef = UIGraphicsGetCurrentContext()
-        CGContextSetRGBStrokeColor(ctx, 0.0, 0.0, 0.0, 0.4)
-        CGContextSetLineWidth(ctx, 1.0)
+        let context: CGContextRef = UIGraphicsGetCurrentContext()
+        CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 0.4)
+        CGContextSetLineWidth(context, 1.0)
 
-        var x: CGFloat = self.center.x
-        var y: CGFloat = self.center.y
-        var r: CGFloat = (self.bounds.size.width > self.bounds.size.height ? self.bounds.size.height : self.bounds.size.width)/2 * 0.8
+        var radius: CGFloat = self.bounds.size.height / 2 * 0.9
+        var x: CGFloat = self.bounds.midX
+        var y: CGFloat = self.bounds.midY
         
         // Background
-        CGContextSetRGBFillColor(ctx, 0, 0, 0, 0.35 );
-        CGContextAddArc(ctx, x, y, r, 0.0, CGFloat(360.0 * M_PI / 180.0), 0)
-        CGContextClosePath(ctx)
-        CGContextFillPath(ctx);
+        CGContextSetRGBFillColor(context, 0, 0, 0, 0.35 );
+        CGContextAddArc(context, x, y, radius, 0.0, CGFloat(360.0 * M_PI / 180.0), 0)
+        CGContextClosePath(context)
+        CGContextFillPath(context);
         
         // Loop through all the values and draw the graph
         for item in self.items {
@@ -119,40 +122,40 @@ class PieChartView: UIView {
             var endDeg = getDegree(Float(item.endTime.timeIntervalSinceDate(startOfDay)))
 
             if (startDeg != endDeg) {
-                CGContextSetRGBFillColor(ctx, red, green, blue, alpha );
-                CGContextMoveToPoint(ctx, x, y);
+                CGContextSetRGBFillColor(context, red, green, blue, alpha );
+                CGContextMoveToPoint(context, x, y);
                 let startAngle: CGFloat = (CGFloat(startDeg)-90.0) * CGFloat(M_PI) / 180.0
                 let endAngle: CGFloat = (CGFloat(endDeg)-90.0) * CGFloat(M_PI) / 180.0
-                CGContextAddArc(ctx, x, y, r, startAngle, endAngle, 0)
-                CGContextClosePath(ctx);
-                CGContextFillPath(ctx);
+                CGContextAddArc(context, x, y, radius, startAngle, endAngle, 0)
+                CGContextClosePath(context);
+                CGContextFillPath(context);
             }
         }
         
         // Make it a donut
-        CGContextSetRGBFillColor(ctx, 1, 1, 1, 1 );
-        CGContextAddArc(ctx, x, y, r*0.75, 0.0, CGFloat(360.0 * M_PI / 180.0), 0)
-        CGContextClosePath(ctx)
-        CGContextFillPath(ctx);
+        CGContextSetRGBFillColor(context, 1, 1, 1, 1 );
+        CGContextAddArc(context, x, y, radius*donutRadius, 0.0, CGFloat(360.0 * M_PI / 180.0), 0)
+        CGContextClosePath(context)
+        CGContextFillPath(context);
         
         // add clock lines
-        CGContextSetRGBStrokeColor(ctx, 0, 0, 0, 0.25)
-        CGContextSetLineWidth(ctx, 1)
+        CGContextSetRGBStrokeColor(context, 0, 0, 0, 0.25)
+        CGContextSetLineWidth(context, 1)
         // -midnight
-        CGContextMoveToPoint(ctx, x, y-r)
-        CGContextAddLineToPoint(ctx, x, y-r*0.75)
-        CGContextDrawPath(ctx, kCGPathStroke)
+        CGContextMoveToPoint(context, x, y-radius)
+        CGContextAddLineToPoint(context, x, y-radius*donutRadius)
+        CGContextDrawPath(context, kCGPathStroke)
         // -6am
-        CGContextMoveToPoint(ctx, x+r, y)
-        CGContextAddLineToPoint(ctx, x+r*0.75, y)
-        CGContextDrawPath(ctx, kCGPathStroke)
+        CGContextMoveToPoint(context, x+radius, y)
+        CGContextAddLineToPoint(context, x+radius*donutRadius, y)
+        CGContextDrawPath(context, kCGPathStroke)
         // -noon
-        CGContextMoveToPoint(ctx, x, y+r)
-        CGContextAddLineToPoint(ctx, x, y+r*0.75)
-        CGContextDrawPath(ctx, kCGPathStroke)
+        CGContextMoveToPoint(context, x, y+radius)
+        CGContextAddLineToPoint(context, x, y+radius*donutRadius)
+        CGContextDrawPath(context, kCGPathStroke)
         // -6pm
-        CGContextMoveToPoint(ctx, x-r, y)
-        CGContextAddLineToPoint(ctx, x-r*0.75, y)
-        CGContextDrawPath(ctx, kCGPathStroke)
+        CGContextMoveToPoint(context, x-radius, y)
+        CGContextAddLineToPoint(context, x-radius*donutRadius, y)
+        CGContextDrawPath(context, kCGPathStroke)
     }
 }
