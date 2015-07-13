@@ -121,11 +121,11 @@ class AddEditViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         newType = activityTypes[0]
         
         // default labels
-        formatter.dateStyle = NSDateFormatterStyle.MediumStyle
-        formatter.timeStyle = NSDateFormatterStyle.ShortStyle
         submitButtonOutlet.enabled = false
 
         // dynamic labels
+        formatter.dateStyle = NSDateFormatterStyle.MediumStyle
+        formatter.timeStyle = NSDateFormatterStyle.ShortStyle
         if (isEditPicker && inputRecord != nil) {
             submitButtonOutlet.setTitle("Submit Edit", forState: UIControlState.Normal)
             let inputStart = inputRecord!.startTime

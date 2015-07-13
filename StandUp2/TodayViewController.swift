@@ -11,6 +11,8 @@ import CoreData
 
 class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate/*, AddEditViewControllerDelegate*/ {
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    let formatter = NSDateFormatter()
+    let today = NSCalendar.currentCalendar().startOfDayForDate(NSDate())
     
     // Outlets
     @IBOutlet weak var activityListTable: UITableView!
@@ -18,12 +20,19 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var addItemButton: UIButton!
+    @IBOutlet weak var nextDayOutlet: UIButton!
     
     // Actions
     @IBAction func refreshButton(sender: AnyObject) {
         refreshTodayView()
     }
     
+    @IBAction func nextDayButton(sender: AnyObject) {
+        changeRenderedDay(1)
+    }
+    @IBAction func prevDayButton(sender: AnyObject) {
+        changeRenderedDay(-1)
+    }
     // Local Variables
     var activityRecordsList = [ActivityRecord]()
     let tableCellID2 = "ActivityListItem"
@@ -49,6 +58,11 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         refreshTodayView()
         dateLabel.text = "Today"
+        nextDayOutlet.enabled = false
+        
+        formatter.dateStyle = NSDateFormatterStyle.LongStyle
+        formatter.timeStyle = NSDateFormatterStyle.NoStyle
+        
     }
 
     func dummyData() {
@@ -65,7 +79,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
     }
 
-    // TODO: only fetch for specific day
     func fetchLog() {
         let fetchRequest = NSFetchRequest(entityName: "ActivityRecord")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "startTime", ascending: true)]
@@ -88,6 +101,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
     
     // MARK:  UITextFieldDelegate Methods
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -168,7 +183,20 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     override func viewWillAppear(animated: Bool) {
-        requestedDate = NSDate(timeInterval: NSTimeInterval(-60*60*24), sinceDate: requestedDate)
+//        requestedDate = NSDate(timeInterval: NSTimeInterval(-60*60*24), sinceDate: requestedDate)
+        refreshTodayView()
+    }
+
+    // timeDirection should be -1 for prev day, 1 for next day
+    func changeRenderedDay(timeDirection: Int) {
+        requestedDate = NSDate(timeInterval: NSTimeInterval(timeDirection*60*60*24), sinceDate: requestedDate)
+        if (NSCalendar.currentCalendar().startOfDayForDate(requestedDate) == today) {
+            dateLabel.text = "Today"
+            nextDayOutlet.enabled = false
+        } else {
+            dateLabel.text = formatter.stringFromDate(requestedDate)
+            nextDayOutlet.enabled = true
+        }
         refreshTodayView()
     }
     
