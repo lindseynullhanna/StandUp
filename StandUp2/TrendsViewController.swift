@@ -8,6 +8,23 @@
 
 import UIKit
 import CoreData
+import Charts
+
+class TrendsChartItem {
+    var color: UIColor
+    var activityType: String
+    var startTime: NSDate
+    var endTime: NSDate
+    var durationFloat: Float
+    
+    init(startTime: NSDate, endTime: NSDate, activityType: String) {
+        self.color = UIColor.blackColor()
+        self.startTime = startTime
+        self.endTime = endTime
+        self.activityType = activityType
+        self.durationFloat = Float(endTime.timeIntervalSinceDate(startTime))
+    }
+}
 
 class TrendsViewController: UIViewController {
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
@@ -17,11 +34,12 @@ class TrendsViewController: UIViewController {
     
     // Outlets
     @IBOutlet weak var trendsLabel: UILabel!
-    @IBOutlet weak var trendsChartView: TrendsChartView!
     @IBOutlet weak var dailyPctButton: UIButton!
     @IBOutlet weak var dailyHrsButton: UIButton!
     @IBOutlet weak var allTimeButton: UIButton!
+    @IBOutlet weak var pieChartView: PieChartView!
     
+
     // Actions
     @IBAction func dailyPctAction(sender: AnyObject) {
         changeChartView(AVERAGE_DAILY_PERCENT)
@@ -41,6 +59,7 @@ class TrendsViewController: UIViewController {
         "Sitting": UIColor.greenColor(),
         "Walking": UIColor.purpleColor()
     ]
+    var chartItems: [TrendsChartItem] = [TrendsChartItem]()
     var requestedDate = NSDate()
     
     override func viewDidLoad() {
@@ -54,13 +73,25 @@ class TrendsViewController: UIViewController {
         fetchLog()
         trendsLabel.text = "Average Duration per Day"
         
-        refreshTrendsView()
-        
         formatter.dateStyle = NSDateFormatterStyle.LongStyle
         formatter.timeStyle = NSDateFormatterStyle.NoStyle
         
+        setChart(0)
+        
     }
-
+    
+    func setChart(chartType: Int) {
+        switch chartType {
+        case 0:
+            drawPieChart(true)
+        case 1:
+            drawPieChart(false)
+        default:
+            break
+        }
+        
+    }
+    
     func fetchLog() {
         let fetchRequest = NSFetchRequest(entityName: "ActivityRecord")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "startTime", ascending: true)]
@@ -78,37 +109,94 @@ class TrendsViewController: UIViewController {
         }
         
         // add chart data
-        trendsChartView.clearItems()
+        chartItems.removeAll(keepCapacity: true)
         for (var i = 0; i < activityRecordsList.count; i++) {
             let record = activityRecordsList[i]
             
-            trendsChartView.addItem(record.startTime, endTime: record.endTime, activityType: record.type)
+            let item = TrendsChartItem(startTime: record.startTime, endTime: record.endTime, activityType: record.type)
+            chartItems.append(item)
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     
-    
-    
     // MARK: rendering methods
     func refreshTrendsView() {
         fetchLog()
-        trendsChartView.setNeedsDisplay()
+        pieChartView.setNeedsDisplay()
     }
     
     func changeChartView(chartType: Int) {
         trendsLabel.text = chartTitles[chartType]
-        trendsChartView.setChartType(chartType)
-        trendsChartView.setNeedsDisplay()
+        setChart(chartType)
     }
     
     override func viewWillAppear(animated: Bool) {
         refreshTrendsView()
     }
+    
+    func drawPieChart(isPercent: Bool) {
+        var activityTotals: [String: Float] = [
+            "Sitting": 0,
+            "Standing": 0,
+            "Walking": 0
+        ]
+        
+        var days: [NSDate] = [NSDate]()
+        
+        // Loop through all the values and collect the information
+        for item in self.chartItems {
+            // add the sums
+            activityTotals[item.activityType] = activityTotals[item.activityType]! + item.durationFloat
+            days.append(NSCalendar.currentCalendar().startOfDayForDate(item.startTime))
+        }
+        
+        let numDays: Float = Float((NSSet(array: days).allObjects).count)
+        var sum: Float = 0.0
+        for (activity, value) in activityTotals {
+            // convert to average hrs/day
+            activityTotals[activity] = value / numDays / 60 / 60
+            sum += activityTotals[activity]!
+        }
+        
+        var yValues: [ChartDataEntry] = []
+        var xValues: [String] = []
+        var pieColors: [UIColor] = []
+        
+        var i = 0
+        for (kind, value) in activityTotals {
+            xValues.append(kind)
+            pieColors.append(colors[kind]!)
+            let dataEntry = ChartDataEntry(value: Double(value), xIndex: i)
+            yValues.append(dataEntry)
+            i++
+        }
+        var unitLabel = ""
+        if (isPercent) {
+            pieChartView.usePercentValuesEnabled = true
+            unitLabel = "(%)"
+        } else {
+            pieChartView.usePercentValuesEnabled = false
+            unitLabel = "(hours)"
+        }
+        
+        let pieChartDataSet = PieChartDataSet(yVals: yValues, label: unitLabel)
+        pieChartDataSet.colors = pieColors
+        let pieChartData = PieChartData(xVals: xValues, dataSet: pieChartDataSet)
+        
+        pieChartView.data = pieChartData
+        
+        //        Legend legend = pieChartView.getLegend()
+        //        var legend: ChartLegend = pieChartView.legend
+        //        legend.position = ChartLegend.ChartLegendPosition.PiechartCenter
+        pieChartView.setNeedsDisplay()
+        
+    }
+
 }
 
 class TrendsCollectionController: UICollectionViewController {

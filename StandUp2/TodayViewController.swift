@@ -16,7 +16,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     // Outlets
     @IBOutlet weak var activityListTable: UITableView!
-    @IBOutlet weak var pieChartView: PieChartView!
+    @IBOutlet weak var pieChartView: PieChartView2!
     
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var addItemButton: UIButton!

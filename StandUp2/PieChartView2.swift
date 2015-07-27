@@ -1,5 +1,5 @@
 //
-//  PieChartView.swift
+//  PieChartView2.swift
 //
 //  Created by Vito Bellini on 03/01/15.
 //  Copyright (c) 2015 Vito Bellini. All rights reserved.
@@ -29,7 +29,7 @@ class PieChartItem {
     }
 }
 
-class PieChartView: UIView {
+class PieChartView2: UIView {
     var items: [PieChartItem] = [PieChartItem]()
     // total is always 24 hours
     let sum: Float = 24*60*60
