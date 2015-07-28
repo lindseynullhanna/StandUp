@@ -28,7 +28,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="eQI-3X-4or">
-                                <rect key="frame" x="0.0" y="235" width="320" height="285"/>
+                                <rect key="frame" x="0.0" y="235.00000040154703" width="320" height="285"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activities" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="j5a-kA-WUp">
@@ -122,11 +122,11 @@
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="F5u-V1-sMX">
-                                <rect key="frame" x="0.0" y="283" width="320" height="237.0000036934772"/>
+                                <rect key="frame" x="0.0" y="283" width="320" height="237"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="GYf-26-WLA">
-                                        <rect key="frame" x="0.0" y="3.6934771969754365e-06" width="320" height="237"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="237"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
@@ -214,7 +214,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Zo0-eU-cmr">
-                                <rect key="frame" x="8" y="439.00000193996925" width="70" height="70"/>
+                                <rect key="frame" x="8" y="439.00000308168512" width="70" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Daily %">
@@ -225,7 +225,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="IzT-1Y-qxL">
-                                <rect key="frame" x="86" y="439.00000193996925" width="70" height="70"/>
+                                <rect key="frame" x="86" y="439.00000308168512" width="70" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Daily Hrs">
@@ -236,7 +236,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XKr-Iz-HXL">
-                                <rect key="frame" x="164" y="439.00000193996925" width="70" height="70"/>
+                                <rect key="frame" x="164" y="439.00000308168512" width="70" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="All time">
@@ -247,16 +247,21 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dEl-8i-mmZ">
-                                <rect key="frame" x="242" y="439.00000193996925" width="70" height="70"/>
+                                <rect key="frame" x="242" y="439.00000308168512" width="70" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="??">
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <view contentMode="scaleToFill" id="1dH-Xn-B7K" customClass="PieChartView" customModule="Charts">
+                            <view contentMode="scaleToFill" id="qqi-wb-28N" customClass="BarChartView" customModule="Charts">
                                 <rect key="frame" x="0.0" y="63" width="320" height="368"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="WFW-NT-UJv" customClass="PieChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="63" width="320" height="368"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -265,9 +270,10 @@
                     <tabBarItem key="tabBarItem" systemItem="history" id="sWL-qe-uJy"/>
                     <connections>
                         <outlet property="allTimeButton" destination="XKr-Iz-HXL" id="I9w-DE-Q26"/>
+                        <outlet property="barChartView" destination="qqi-wb-28N" id="TG9-lh-DtB"/>
                         <outlet property="dailyHrsButton" destination="IzT-1Y-qxL" id="cEK-ep-PL8"/>
                         <outlet property="dailyPctButton" destination="Zo0-eU-cmr" id="omJ-Wz-yqG"/>
-                        <outlet property="pieChartView" destination="1dH-Xn-B7K" id="iKl-tM-vYW"/>
+                        <outlet property="pieChartView" destination="WFW-NT-UJv" id="Tr5-7i-yW0"/>
                         <outlet property="trendsLabel" destination="krA-fE-7F1" id="305-Uw-ha7"/>
                     </connections>
                 </viewController>
@@ -438,6 +444,20 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="TWG-Ob-b2p">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="iMH-Ls-a0g" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="WbW-Cd-3Fi">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5r8-WV-Slv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
     <resources>

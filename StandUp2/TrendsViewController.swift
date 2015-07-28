@@ -38,6 +38,7 @@ class TrendsViewController: UIViewController {
     @IBOutlet weak var dailyHrsButton: UIButton!
     @IBOutlet weak var allTimeButton: UIButton!
     @IBOutlet weak var pieChartView: PieChartView!
+    @IBOutlet weak var barChartView: BarChartView!
     
 
     // Actions
@@ -71,21 +72,24 @@ class TrendsViewController: UIViewController {
         
         
         fetchLog()
-        trendsLabel.text = "Average Duration per Day"
         
         formatter.dateStyle = NSDateFormatterStyle.LongStyle
         formatter.timeStyle = NSDateFormatterStyle.NoStyle
         
-        setChart(0)
+        setChart(1)
         
     }
     
     func setChart(chartType: Int) {
+        pieChartView.hidden = true
+        barChartView.hidden = true
+        
+        trendsLabel.text = chartTitles[chartType]
         switch chartType {
         case 0:
             drawPieChart(true)
         case 1:
-            drawPieChart(false)
+            drawBarChart()
         default:
             break
         }
@@ -131,44 +135,49 @@ class TrendsViewController: UIViewController {
     }
     
     func changeChartView(chartType: Int) {
-        trendsLabel.text = chartTitles[chartType]
         setChart(chartType)
     }
     
     override func viewWillAppear(animated: Bool) {
         refreshTrendsView()
     }
+    var activityTotals: [String: Float] = [String: Float]()
+    var days: [NSDate] = [NSDate]()
     
-    func drawPieChart(isPercent: Bool) {
-        var activityTotals: [String: Float] = [
+    func calculateAverages() {
+        self.activityTotals = [
             "Sitting": 0,
             "Standing": 0,
             "Walking": 0
         ]
         
-        var days: [NSDate] = [NSDate]()
+        days = [NSDate]()
         
         // Loop through all the values and collect the information
         for item in self.chartItems {
             // add the sums
-            activityTotals[item.activityType] = activityTotals[item.activityType]! + item.durationFloat
+            self.activityTotals[item.activityType] = self.activityTotals[item.activityType]! + item.durationFloat
             days.append(NSCalendar.currentCalendar().startOfDayForDate(item.startTime))
         }
         
-        let numDays: Float = Float((NSSet(array: days).allObjects).count)
+        let numDays: Float = Float((NSSet(array: self.days).allObjects).count)
         var sum: Float = 0.0
-        for (activity, value) in activityTotals {
+        for (activity, value) in self.activityTotals {
             // convert to average hrs/day
-            activityTotals[activity] = value / numDays / 60 / 60
-            sum += activityTotals[activity]!
+            self.activityTotals[activity] = value / numDays / 60 / 60
+            sum += self.activityTotals[activity]!
         }
-        
+    }
+    
+    func drawPieChart(isPercent: Bool) {
+        calculateAverages()
+
         var yValues: [ChartDataEntry] = []
         var xValues: [String] = []
         var pieColors: [UIColor] = []
         
         var i = 0
-        for (kind, value) in activityTotals {
+        for (kind, value) in self.activityTotals {
             xValues.append(kind)
             pieColors.append(colors[kind]!)
             let dataEntry = ChartDataEntry(value: Double(value), xIndex: i)
@@ -187,18 +196,43 @@ class TrendsViewController: UIViewController {
         let pieChartDataSet = PieChartDataSet(yVals: yValues, label: unitLabel)
         pieChartDataSet.colors = pieColors
         let pieChartData = PieChartData(xVals: xValues, dataSet: pieChartDataSet)
-        
         pieChartView.data = pieChartData
+        pieChartView.descriptionText = ""
+        pieChartView.legend.enabled = false
         
-        //        Legend legend = pieChartView.getLegend()
-        //        var legend: ChartLegend = pieChartView.legend
-        //        legend.position = ChartLegend.ChartLegendPosition.PiechartCenter
+        pieChartView.hidden = false
         pieChartView.setNeedsDisplay()
-        
     }
-
-}
-
-class TrendsCollectionController: UICollectionViewController {
     
+    func drawBarChart() {
+        calculateAverages()
+        
+        var xValues: [String] = []
+        var yValues: [BarChartDataEntry] = []
+        var barColors: [UIColor] = []
+        
+        var i = 0
+        for (kind, value) in self.activityTotals {
+            xValues.append(kind)
+            barColors.append(colors[kind]!)
+            let dataEntry = BarChartDataEntry(value: Double(value), xIndex: i)
+            yValues.append(dataEntry)
+            i++
+        }
+        
+        let barChartDataSet = BarChartDataSet(yVals: yValues, label: "Hours")
+        barChartDataSet.colors = barColors
+        let barChartData = BarChartData(xVals: xValues, dataSet: barChartDataSet)
+        barChartData.setValueFont(UIFont.systemFontOfSize(12.0))
+        
+        barChartView.data = barChartData
+        barChartView.xAxis.labelPosition = .Bottom
+        barChartView.rightAxis.enabled = false
+        
+        barChartView.legend.enabled = false
+        barChartView.descriptionText = ""
+        
+        barChartView.hidden = false
+        barChartView.setNeedsDisplay()
+    }
 }
