@@ -49,7 +49,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         // Do any additional setup after loading the view, typically from a nib.
         
         
-        dummyData()
+//        dummyData()
         
         refreshTodayView()
         dateLabel.text = "Today"

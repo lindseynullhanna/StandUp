@@ -33,19 +33,31 @@ class CurrentActivityViewController: UIViewController, UITableViewDataSource, UI
     var prevActivityType = ""
     var lastStartTime = NSDate()
     var timer = NSTimer()
+    var isRecording: Bool = false
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        loadPreviousState()
         activityTable.delegate = self
         activityTable.dataSource = self
         endActivityButton.enabled = false
+        
+        if isRecording {
+            startTimer(false)
+        }
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveCurrentState", name: UIApplicationDidEnterBackgroundNotification, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     // MARK:  UITextFieldDelegate Methods
@@ -81,7 +93,7 @@ class CurrentActivityViewController: UIViewController, UITableViewDataSource, UI
         
         // start a new timer
         prevActivityType = activityList[row]
-        startTimer()
+        startTimer(true)
     }
     
     func recordTime(activityType: String) {
@@ -92,14 +104,19 @@ class CurrentActivityViewController: UIViewController, UITableViewDataSource, UI
             endTime: NSDate())
     }
     
-    func startTimer() {
+    func startTimer(restartTime: Bool) {
         endActivityButton.enabled = true
         // refresh stopwatch every .1sec
         let aSelector: Selector = "updateTime"
         timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: aSelector, userInfo: nil, repeats: true)
         
+        isRecording = true
         // set start time
-        lastStartTime = NSDate()
+        if restartTime {
+            lastStartTime = NSDate()
+        } else {
+            currentActivityLabel.text = prevActivityType
+        }
     }
     
     func stopTimerAndRecord(activityType: String) {
@@ -109,6 +126,7 @@ class CurrentActivityViewController: UIViewController, UITableViewDataSource, UI
         recordTime(activityType)
         // reset stuff
         timer.invalidate()
+        isRecording = false
     }
     
     // string displayed to stopwatch
@@ -118,6 +136,34 @@ class CurrentActivityViewController: UIViewController, UITableViewDataSource, UI
         var elapsedTime: NSTimeInterval = currentTime.timeIntervalSinceDate(lastStartTime)
         let elapsedString = createDurationString(elapsedTime)
         elapsedTimeLabel.text = elapsedString
+    }
+    
+    // MARK: State methods
+    // MARK: Memento Pattern
+    func saveCurrentState() {
+        NSUserDefaults.standardUserDefaults().setObject(lastStartTime, forKey: "savedStartTime")
+        NSUserDefaults.standardUserDefaults().setObject(prevActivityType, forKey: "savedActivityType")
+        NSUserDefaults.standardUserDefaults().setBool(isRecording, forKey: "savedRecordingState")
+    }
+    
+    func loadPreviousState() {
+        var savedRecordingState: Bool? = NSUserDefaults.standardUserDefaults().objectForKey("savedRecordingState") as? Bool
+        
+        if savedRecordingState != nil && savedRecordingState == true {
+            isRecording = true
+            // if we were recording, reload state
+            var savedStartTime: AnyObject? = NSUserDefaults.standardUserDefaults().objectForKey("savedStartTime")
+            
+            // TODO: if date is not today?
+            if savedStartTime != nil {
+                lastStartTime = savedStartTime as! NSDate
+            }
+            var savedActivityType: AnyObject? = NSUserDefaults.standardUserDefaults().objectForKey("savedActivityType")
+            
+            if savedActivityType != nil {
+                prevActivityType = savedActivityType as! String
+            }
+        }
     }
 }
 

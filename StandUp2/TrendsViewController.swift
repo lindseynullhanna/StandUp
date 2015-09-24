@@ -85,6 +85,9 @@ class TrendsViewController: UIViewController {
         barChartView.hidden = true
         
         trendsLabel.text = chartTitles[chartType]
+        if activityRecordsList.count == 0 {
+            return
+        }
         switch chartType {
         case 0:
             drawPieChart(true)
